@@ -60,14 +60,14 @@ const TransactionModal = (): ReactElement => {
       // (a) review the import guidance on line 1
       // (b) instantiate a connection using clusterApiUrl with the active network passed in as an argument
       // Documentation References:
-      //   https://solana-labs.github.io/solana-web3.js/classes/Connection.html
-      //   https://solana-labs.github.io/solana-web3.js/modules.html#clusterApiUrl
+      //   https://solana-labs.github.io/solana-web3.js/v1.x/classes/Connection.html
+      //   https://solana-labs.github.io/solana-web3.js/v1.x/modules.html#clusterApiUrl
       const connection = new Connection(clusterApiUrl(network), "confirmed");
       setTransactionSig("");
       // (c) leverage the SystemProgram class to create transfer instructions that include your account's public key, the public key from your sender field in the form, and the amount from the form
       // Documentation Reference:
-      //   https://solana-labs.github.io/solana-web3.js/classes/SystemProgram.html
-      //   https://solana-labs.github.io/solana-web3.js/classes/SystemProgram.html#transfer
+      //   https://solana-labs.github.io/solana-web3.js/v1.x/classes/SystemProgram.html
+      //   https://solana-labs.github.io/solana-web3.js/v1.x/classes/SystemProgram.html#transfer
       const instructions = SystemProgram.transfer({
         fromPubkey: account.publicKey,
         toPubkey: new PublicKey(form.to),
@@ -76,13 +76,13 @@ const TransactionModal = (): ReactElement => {
 
       // (d) instantiate a transaction object and add the instructions
       // Documentation Reference:
-      //   https://solana-labs.github.io/solana-web3.js/classes/Transaction.html
-      //   https://solana-labs.github.io/solana-web3.js/classes/Transaction.html#add
+      //   https://solana-labs.github.io/solana-web3.js/v1.x/classes/Transaction.html
+      //   https://solana-labs.github.io/solana-web3.js/v1.x/classes/Transaction.html#add
       const transaction = new Transaction().add(instructions);
 
       // (e) use your account to create a signers interface
       // Documentation Reference:
-      //   https://solana-labs.github.io/solana-web3.js/interfaces/Signer.html
+      //   https://solana-labs.github.io/solana-web3.js/v1.x/interfaces/Signer.html
       //   note: signers is an array with a single item - an object with two properties
       const signers = [{
         publicKey: account.publicKey,
@@ -91,7 +91,7 @@ const TransactionModal = (): ReactElement => {
 
       setSending(true);
       // (f) send the transaction and await its confirmation
-      // Documentation Reference: https://solana-labs.github.io/solana-web3.js/modules.html#sendAndConfirmTransaction
+      // Documentation Reference: https://solana-labs.github.io/solana-web3.js/v1.x/modules.html#sendAndConfirmTransaction
       const confirmation = await sendAndConfirmTransaction(connection, transaction, signers);
       setTransactionSig(confirmation);
       setSending(false);
